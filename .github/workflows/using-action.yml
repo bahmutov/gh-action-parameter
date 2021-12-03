@@ -4,6 +4,8 @@ on: [push]
 jobs:
   prepare:
     runs-on: ubuntu-20.04
+    outputs:
+      matrix: ${{ steps.prepare.outputs.matrix }}
     steps:
       - id: prepare
         uses: bahmutov/gh-build-matrix@main
@@ -14,4 +16,4 @@ jobs:
     needs: prepare
     runs-on: ubuntu-20.04
     steps:
-      - run: echo '${{jobs.prepare.outputs.matrix}}'
+      - run: echo '${{needs.prepare.outputs.matrix}}'
