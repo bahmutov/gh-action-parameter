@@ -1,0 +1,9 @@
+name: Using action
+on: [push]
+
+jobs:
+  prep:
+    runs-on: ubuntu-20.04
+    steps:
+      - id: prepare
+        uses: bahmutov/gh-build-matrix@main
