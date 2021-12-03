@@ -15,6 +15,12 @@ jobs:
           # echo "::set-output name=matrix::{\"containers\":[1, 2, 3]}"
           echo "::set-output name=matrix::$(./output-matrix.sh 4)"
           echo "::set-output name=strategy::{\"matrix\":{\"containers\":[1, 2, 3]}}"
+
+  print:
+    needs: job1
+    runs-on: ubuntu-20.04
+    steps:
+      - run: echo ${{needs.job1.outputs.matrix}}"
   job2:
     needs: job1
     runs-on: ubuntu-20.04
