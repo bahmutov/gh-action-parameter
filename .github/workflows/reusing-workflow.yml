@@ -1,0 +1,13 @@
+name: Reusing workflow
+on: [push]
+
+jobs:
+  prepare:
+    uses: bahmutov/gh-build-matrix/.github/workflows/reusable.yml@main
+    with:
+      n: 4
+  print:
+    needs: prepare
+    runs-on: ubuntu-20.04
+    steps:
+      - run: echo '${{needs.prepare.outputs.matrix}}'
