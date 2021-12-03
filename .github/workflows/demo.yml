@@ -1,0 +1,36 @@
+name: demo
+on:
+  workflow_dispatch:
+    inputs:
+      N:
+        description: Number of parallel jobs to run
+        required: true
+        default: 1
+
+jobs:
+  job1:
+    runs-on: ubuntu-20.04
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
+      - id: set-matrix
+        run: |
+          echo "::set-output name=matrix::$(./output-matrix.sh 4)"
+
+  print:
+    needs: job1
+    runs-on: ubuntu-20.04
+    steps:
+      - run: echo '${{needs.job1.outputs.matrix}}'
+
+  # the N parallel jobs we create
+  parallel:
+    needs: job1
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
+    steps:
+      - run: echo "Building ..."
