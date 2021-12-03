@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-20.04
     # strategy: ${{fromJSON(needs.job1.outputs.strategy)}}
     strategy:
+      fail-fast: false
       matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
     steps:
       - run: echo "Building ..."
