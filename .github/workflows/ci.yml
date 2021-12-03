@@ -10,16 +10,19 @@ jobs:
         # output different levels of the strategy
         run: |
           echo "::set-output name=containers::[1, 2, 3]"
-          echo "::set-output name=matrix::{\"containers\":[1, 2, 3]}"
+          # echo "::set-output name=matrix::{\"containers\":[1, 2, 3]}"
+          echo "::set-output name=matrix::$(./output-matrix.sh)"
           echo "::set-output name=strategy::{\"matrix\":{\"containers\":[1, 2, 3]}}"
   job2:
     needs: job1
     runs-on: ubuntu-20.04
     # not working - json parse error?!
-    strategy: ${{fromJSON(needs.job1.outputs.strategy)}}
+    # Error reading JToken from JsonReader. Path ''
+    # Unexpected value ''
+    # strategy: ${{fromJSON(needs.job1.outputs.strategy)}}
     # working
-    # strategy:
-    #   fail-fast: false
-    #   matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
     steps:
       - run: echo "Building ..."
