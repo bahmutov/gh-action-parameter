@@ -13,7 +13,8 @@ jobs:
   prepare:
     uses: bahmutov/gh-build-matrix/.github/workflows/reusable.yml@main
     with:
-      n: 5
+      n: ${{ github.event.inputs.N }}
+
   # the N parallel jobs we create
   parallel:
     needs: prepare
