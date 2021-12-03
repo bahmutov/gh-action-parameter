@@ -11,10 +11,10 @@ jobs:
         run: |
           echo "::set-output name=containers::[1, 2, 3]"
           echo "::set-output name=matrix::{\"containers\":[1, 2, 3]}"
-          echo "::set-output name=strategy::{\"strategy\":{\"matrix\":{\"containers\":[1, 2, 3]},\"fail-fast\":false}}"
+          echo "::set-output name=strategy::{\"matrix\":{\"containers\":[1, 2, 3]},\"fail-fast\":false}"
   job2:
     needs: job1
     runs-on: ubuntu-20.04
-    ${{fromJSON(needs.job1.outputs.strategy)}}
+    strategy: ${{fromJSON(needs.job1.outputs.strategy)}}
     steps:
       - run: echo "Building ..."
