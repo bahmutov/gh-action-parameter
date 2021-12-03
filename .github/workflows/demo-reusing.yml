@@ -5,6 +5,7 @@ on:
     inputs:
       N:
         description: Number of parallel jobs to run
+        type: number
         required: true
         default: 1
 
