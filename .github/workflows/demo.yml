@@ -8,6 +8,7 @@ on:
         default: 1
 
 jobs:
+  # use our local script to create the container list
   prepare:
     runs-on: ubuntu-20.04
     outputs:

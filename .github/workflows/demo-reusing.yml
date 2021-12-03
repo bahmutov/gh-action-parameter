@@ -1,0 +1,24 @@
+# reusing an entire workflow from bahmutov/gh-build-matrix
+name: demo-reusing
+on:
+  workflow_dispatch:
+    inputs:
+      N:
+        description: Number of parallel jobs to run
+        required: true
+        default: 1
+
+jobs:
+  prepare:
+    uses: bahmutov/gh-build-matrix/.github/workflows/reusable.yml@main
+    with:
+      n: ${{ github.event.inputs.N }}
+  # the N parallel jobs we create
+  parallel:
+    needs: prepare
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJSON(needs.prepare.outputs.matrix)}}
+    steps:
+      - run: echo "Building ..."
