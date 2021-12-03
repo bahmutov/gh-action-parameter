@@ -7,13 +7,14 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - id: set-matrix
-        run: echo "::set-output name=matrix::[1, 2, 3]"
+        run: |
+          echo "::set-output name=containers::[1, 2, 3]"
+          echo "::set-output name=matrix::{\"containers\":[1, 2, 3]}"
   job2:
     needs: job1
     runs-on: ubuntu-20.04
     strategy:
-      matrix:
-        containers: ${{needs.job1.outputs.matrix}}
+      matrix: ${{fromJSON(needs.job1.outputs.matrix)}}
       fail-fast: false
     steps:
       - run: echo "Building ..."
