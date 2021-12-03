@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        containers: ${{fromJSON(needs.job1.outputs.matrix)}}
+        containers: ${{needs.job1.outputs.matrix}}
       fail-fast: false
     steps:
       - run: echo "Building ..."
