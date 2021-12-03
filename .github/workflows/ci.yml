@@ -20,7 +20,8 @@ jobs:
     needs: job1
     runs-on: ubuntu-20.04
     steps:
-      - run: echo ${{needs.job1.outputs.matrix}}"
+      - run: echo '${{needs.job1.outputs.matrix}}'
+
   job2:
     needs: job1
     runs-on: ubuntu-20.04
