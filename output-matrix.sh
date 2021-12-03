@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo '{\"containers\":[1, 2, 3]}'
+echo '{"containers":[1, 2, 3]}'
