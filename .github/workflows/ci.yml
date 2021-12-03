@@ -13,7 +13,7 @@ jobs:
         run: |
           echo "::set-output name=containers::[1, 2, 3]"
           # echo "::set-output name=matrix::{\"containers\":[1, 2, 3]}"
-          echo "::set-output name=matrix::$(./output-matrix.sh)"
+          echo "::set-output name=matrix::$(./output-matrix.sh 4)"
           echo "::set-output name=strategy::{\"matrix\":{\"containers\":[1, 2, 3]}}"
   job2:
     needs: job1
