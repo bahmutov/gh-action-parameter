@@ -6,6 +6,8 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
       - id: set-matrix
         # output different levels of the strategy
         run: |
