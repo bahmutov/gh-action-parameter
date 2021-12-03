@@ -2,8 +2,16 @@ name: Using action
 on: [push]
 
 jobs:
-  prep:
+  prepare:
     runs-on: ubuntu-20.04
     steps:
       - id: prepare
         uses: bahmutov/gh-build-matrix@main
+        with:
+          n: 3
+
+  print:
+    needs: prepare
+    runs-on: ubuntu-20.04
+    steps:
+      - run: echo '${{needs.prepare.outputs.matrix}}'
